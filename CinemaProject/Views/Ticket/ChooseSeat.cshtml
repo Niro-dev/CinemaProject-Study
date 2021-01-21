@@ -1,0 +1,26 @@
+﻿@model CinemaProject.ViewModel.TicketFormViewModel
+@{
+    ViewBag.Title = "ChooseSeat";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Choose Seat Page For - @Model.Screening.Movie.Name</h2>
+
+@using (Html.BeginForm("Save", "Ticket"))
+{
+    <h4>Occupied Seats:</h4>
+    foreach (var ticketList in Model.TicketsList)
+    {
+        <li>@ticketList.SeatNumber</li>
+    }
+    <div class="form-group">
+        @Html.LabelFor(m => m.Ticket.SeatNumber)
+        @Html.TextBoxFor(m => m.Ticket.SeatNumber, new { @class = "form-control" })
+    </div>
+    @Html.HiddenFor(m => m.Ticket.Date, new { @Value = @Model.Screening.Date })
+    @Html.HiddenFor(m => m.Ticket.HallId, new { @Value = @Model.Screening.HallId })
+    @Html.HiddenFor(m => m.Ticket.Paid)
+
+    <button type="submit" class="btn btn-primary">Next</button>
+}
+

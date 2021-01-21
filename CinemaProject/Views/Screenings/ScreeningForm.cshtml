@@ -1,0 +1,58 @@
+﻿@model CinemaProject.ViewModel.ScreeningFormViewModel
+@{
+    ViewBag.Title = "ScreeningForm";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Screenings Manage Page</h2>
+@using (Html.BeginForm("Save", "Screenings"))
+{
+    <div class="form-group">
+        @Html.LabelFor(m => m.Screening.HallId)
+        @Html.DropDownListFor(m => m.Screening.HallId, new SelectList(Model.Halls, "Id", "Id"), "", new { @class = "form-control" })
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.Screening.MovieId)
+        @Html.DropDownListFor(m => m.Screening.MovieId, new SelectList(Model.Movie, "Id", "Name"), "", new { @class = "form-control" })
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.Screening.Date)
+        <div class="input-group" id="datetimepicker">
+            @Html.EditorFor(model => model.Screening.Date, new { htmlAttributes = new { @class = "form-control" } })
+            <span class="input-group-addon">
+                <span class="glyphicon glyphicon-calendar"></span>
+            </span>
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.Screening.Price)
+        @Html.TextBoxFor(m => m.Screening.Price, new { @class = "form-control" })
+    </div>
+    <button type="submit" class="btn btn-primary">Save</button>
+}
+
+@section Scripts
+{
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.15.1/moment.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.7.14/js/bootstrap-datetimepicker.min.js"></script>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.7.14/css/bootstrap-datetimepicker.min.css">
+    <script>
+        $(document).ready(function ()
+        {
+            $("#datetimepicker").datetimepicker(
+                {
+                    defaultDate: '@Model.Screening.Date',
+                    showTodayButton: true,
+                    format: 'YYYY-DD-MM HH:mm',
+                    showClose: true,
+                    showClear: true,
+                    toolbarPlacement: 'top',
+                    stepping: 15
+                });
+        });
+    </script>
+}

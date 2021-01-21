@@ -45,16 +45,28 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AutoMapper, Version=4.1.0.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
+      <HintPath>..\packages\AutoMapper.4.1.0\lib\net45\AutoMapper.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Net.Http.Formatting, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.3\lib\net45\System.Net.Http.Formatting.dll</HintPath>
+    </Reference>
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Web.Http, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Core.5.2.3\lib\net45\System.Web.Http.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http.WebHost, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.WebHost.5.2.3\lib\net45\System.Web.Http.WebHost.dll</HintPath>
+    </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Extensions" />
@@ -165,42 +177,447 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\IdentityConfig.cs" />
+    <Compile Include="App_Start\MappingProfile.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
+    <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\Api\MoviesController.cs" />
+    <Compile Include="Controllers\Api\CustomerController.cs" />
+    <Compile Include="Controllers\CustomerController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\MoviesController.cs" />
+    <Compile Include="Controllers\ScreeningsController.cs" />
+    <Compile Include="Controllers\TicketController.cs" />
+    <Compile Include="Dtos\CustomerDto.cs" />
+    <Compile Include="Dtos\MovieDto.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202101050955280_InitialModel.cs" />
+    <Compile Include="Migrations\202101050955280_InitialModel.Designer.cs">
+      <DependentUpon>202101050955280_InitialModel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202101061836366_AddIsSubscribedToCustomer.cs" />
+    <Compile Include="Migrations\202101061836366_AddIsSubscribedToCustomer.Designer.cs">
+      <DependentUpon>202101061836366_AddIsSubscribedToCustomer.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202101061847066_AddMembershipType.cs" />
+    <Compile Include="Migrations\202101061847066_AddMembershipType.Designer.cs">
+      <DependentUpon>202101061847066_AddMembershipType.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202101061850273_PopulateMembershipTypes.cs" />
+    <Compile Include="Migrations\202101061850273_PopulateMembershipTypes.Designer.cs">
+      <DependentUpon>202101061850273_PopulateMembershipTypes.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202101061913247_ApplyAnnotationsToCustomerName.cs" />
+    <Compile Include="Migrations\202101061913247_ApplyAnnotationsToCustomerName.Designer.cs">
+      <DependentUpon>202101061913247_ApplyAnnotationsToCustomerName.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202101062039176_AddNameToMembershipType.cs" />
+    <Compile Include="Migrations\202101062039176_AddNameToMembershipType.Designer.cs">
+      <DependentUpon>202101062039176_AddNameToMembershipType.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202101062043292_SetNameOfMembershipTypes.cs" />
+    <Compile Include="Migrations\202101062043292_SetNameOfMembershipTypes.Designer.cs">
+      <DependentUpon>202101062043292_SetNameOfMembershipTypes.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202101062056179_AddBirthdateToCustomer.cs" />
+    <Compile Include="Migrations\202101062056179_AddBirthdateToCustomer.Designer.cs">
+      <DependentUpon>202101062056179_AddBirthdateToCustomer.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202101062116009_AddMovie.cs" />
+    <Compile Include="Migrations\202101062116009_AddMovie.Designer.cs">
+      <DependentUpon>202101062116009_AddMovie.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202101062126007_AddMovie1.cs" />
+    <Compile Include="Migrations\202101062126007_AddMovie1.Designer.cs">
+      <DependentUpon>202101062126007_AddMovie1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202101070626509_Genres.cs" />
+    <Compile Include="Migrations\202101070626509_Genres.Designer.cs">
+      <DependentUpon>202101070626509_Genres.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202101081926090_test.cs" />
+    <Compile Include="Migrations\202101081926090_test.Designer.cs">
+      <DependentUpon>202101081926090_test.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202101141240462_AddNewFieldsToMovie.cs" />
+    <Compile Include="Migrations\202101141240462_AddNewFieldsToMovie.Designer.cs">
+      <DependentUpon>202101141240462_AddNewFieldsToMovie.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202101161054124_ChangedPosterNamePropertyToFile.cs" />
+    <Compile Include="Migrations\202101161054124_ChangedPosterNamePropertyToFile.Designer.cs">
+      <DependentUpon>202101161054124_ChangedPosterNamePropertyToFile.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202101161126370_RemoveNumberInStockPropertyFromMovies.cs" />
+    <Compile Include="Migrations\202101161126370_RemoveNumberInStockPropertyFromMovies.Designer.cs">
+      <DependentUpon>202101161126370_RemoveNumberInStockPropertyFromMovies.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202101161131330_AddHasLimitiationToMovies.cs" />
+    <Compile Include="Migrations\202101161131330_AddHasLimitiationToMovies.Designer.cs">
+      <DependentUpon>202101161131330_AddHasLimitiationToMovies.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202101161338259_testtt.cs" />
+    <Compile Include="Migrations\202101161338259_testtt.Designer.cs">
+      <DependentUpon>202101161338259_testtt.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202101161429536_testtt1.cs" />
+    <Compile Include="Migrations\202101161429536_testtt1.Designer.cs">
+      <DependentUpon>202101161429536_testtt1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202101171232100_AddTicket.cs" />
+    <Compile Include="Migrations\202101171232100_AddTicket.Designer.cs">
+      <DependentUpon>202101171232100_AddTicket.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202101171325137_AddTicket1.cs" />
+    <Compile Include="Migrations\202101171325137_AddTicket1.Designer.cs">
+      <DependentUpon>202101171325137_AddTicket1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202101171333183_AddHall.cs" />
+    <Compile Include="Migrations\202101171333183_AddHall.Designer.cs">
+      <DependentUpon>202101171333183_AddHall.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202101191708531_AddSeat.cs" />
+    <Compile Include="Migrations\202101191708531_AddSeat.Designer.cs">
+      <DependentUpon>202101191708531_AddSeat.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202101191749001_AddScreening.cs" />
+    <Compile Include="Migrations\202101191749001_AddScreening.Designer.cs">
+      <DependentUpon>202101191749001_AddScreening.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202101191816066_ModifyTicket.cs" />
+    <Compile Include="Migrations\202101191816066_ModifyTicket.Designer.cs">
+      <DependentUpon>202101191816066_ModifyTicket.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202101191844057_ModifyTicket1.cs" />
+    <Compile Include="Migrations\202101191844057_ModifyTicket1.Designer.cs">
+      <DependentUpon>202101191844057_ModifyTicket1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202101191849354_ModifyTicket2.cs" />
+    <Compile Include="Migrations\202101191849354_ModifyTicket2.Designer.cs">
+      <DependentUpon>202101191849354_ModifyTicket2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202101191856026_ModifyTicket3.cs" />
+    <Compile Include="Migrations\202101191856026_ModifyTicket3.Designer.cs">
+      <DependentUpon>202101191856026_ModifyTicket3.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202101191938555_ModifyModules.cs" />
+    <Compile Include="Migrations\202101191938555_ModifyModules.Designer.cs">
+      <DependentUpon>202101191938555_ModifyModules.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202101191944589_ModifyScreenings.cs" />
+    <Compile Include="Migrations\202101191944589_ModifyScreenings.Designer.cs">
+      <DependentUpon>202101191944589_ModifyScreenings.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202101192019424_PopulateHall.cs" />
+    <Compile Include="Migrations\202101192019424_PopulateHall.Designer.cs">
+      <DependentUpon>202101192019424_PopulateHall.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202101192035386_PopulateHallNew.cs" />
+    <Compile Include="Migrations\202101192035386_PopulateHallNew.Designer.cs">
+      <DependentUpon>202101192035386_PopulateHallNew.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202101210646392_ModifySeat.cs" />
+    <Compile Include="Migrations\202101210646392_ModifySeat.Designer.cs">
+      <DependentUpon>202101210646392_ModifySeat.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202101210812590_DeleteSeatAndModifyTicket.cs" />
+    <Compile Include="Migrations\202101210812590_DeleteSeatAndModifyTicket.Designer.cs">
+      <DependentUpon>202101210812590_DeleteSeatAndModifyTicket.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202101210829556_ModifyScreenings1.cs" />
+    <Compile Include="Migrations\202101210829556_ModifyScreenings1.Designer.cs">
+      <DependentUpon>202101210829556_ModifyScreenings1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202101210831562_ModifyTickets.cs" />
+    <Compile Include="Migrations\202101210831562_ModifyTickets.Designer.cs">
+      <DependentUpon>202101210831562_ModifyTickets.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202101210914269_ModifyTickets1.cs" />
+    <Compile Include="Migrations\202101210914269_ModifyTickets1.Designer.cs">
+      <DependentUpon>202101210914269_ModifyTickets1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202101210943100_ModifyTickets11.cs" />
+    <Compile Include="Migrations\202101210943100_ModifyTickets11.Designer.cs">
+      <DependentUpon>202101210943100_ModifyTickets11.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202101210946526_ModifyTicketsNew.cs" />
+    <Compile Include="Migrations\202101210946526_ModifyTicketsNew.Designer.cs">
+      <DependentUpon>202101210946526_ModifyTicketsNew.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202101210959396_ModifyTicketsNew1.cs" />
+    <Compile Include="Migrations\202101210959396_ModifyTicketsNew1.Designer.cs">
+      <DependentUpon>202101210959396_ModifyTicketsNew1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202101211136330_TicketsModify.cs" />
+    <Compile Include="Migrations\202101211136330_TicketsModify.Designer.cs">
+      <DependentUpon>202101211136330_TicketsModify.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\Customer.cs" />
+    <Compile Include="Models\Genre.cs" />
+    <Compile Include="Models\Hall.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\MembershipType.cs" />
+    <Compile Include="Models\Movie.cs" />
+    <Compile Include="Models\Screening.cs" />
+    <Compile Include="Models\Ticket.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
+    <Compile Include="ViewModel\CustomerFormViewModel.cs" />
+    <Compile Include="ViewModel\MovieFormViewModel.cs" />
+    <Compile Include="ViewModel\RandomMovieViewModel.cs" />
+    <Compile Include="ViewModel\MovieDetailsFormViewModel.cs" />
+    <Compile Include="ViewModel\ScreeningFormViewModel.cs" />
+    <Compile Include="ViewModel\TicketFormViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\bootstrap-lumen.css" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\DataTables\css\autoFill.bootstrap.css" />
+    <Content Include="Content\DataTables\css\autoFill.bootstrap.min.css" />
+    <Content Include="Content\DataTables\css\autoFill.dataTables.css" />
+    <Content Include="Content\DataTables\css\autoFill.dataTables.min.css" />
+    <Content Include="Content\DataTables\css\autoFill.foundation.css" />
+    <Content Include="Content\DataTables\css\autoFill.foundation.min.css" />
+    <Content Include="Content\DataTables\css\autoFill.jqueryui.css" />
+    <Content Include="Content\DataTables\css\autoFill.jqueryui.min.css" />
+    <Content Include="Content\DataTables\css\buttons.bootstrap.css" />
+    <Content Include="Content\DataTables\css\buttons.bootstrap.min.css" />
+    <Content Include="Content\DataTables\css\buttons.bootstrap4.css" />
+    <Content Include="Content\DataTables\css\buttons.bootstrap4.min.css" />
+    <Content Include="Content\DataTables\css\buttons.dataTables.css" />
+    <Content Include="Content\DataTables\css\buttons.dataTables.min.css" />
+    <Content Include="Content\DataTables\css\buttons.foundation.css" />
+    <Content Include="Content\DataTables\css\buttons.foundation.min.css" />
+    <Content Include="Content\DataTables\css\buttons.jqueryui.css" />
+    <Content Include="Content\DataTables\css\buttons.jqueryui.min.css" />
+    <Content Include="Content\DataTables\css\colReorder.bootstrap.css" />
+    <Content Include="Content\DataTables\css\colReorder.bootstrap.min.css" />
+    <Content Include="Content\DataTables\css\colReorder.dataTables.css" />
+    <Content Include="Content\DataTables\css\colReorder.dataTables.min.css" />
+    <Content Include="Content\DataTables\css\colReorder.foundation.css" />
+    <Content Include="Content\DataTables\css\colReorder.foundation.min.css" />
+    <Content Include="Content\DataTables\css\colReorder.jqueryui.css" />
+    <Content Include="Content\DataTables\css\colReorder.jqueryui.min.css" />
+    <Content Include="Content\DataTables\css\dataTables.bootstrap.css" />
+    <Content Include="Content\DataTables\css\dataTables.bootstrap.min.css" />
+    <Content Include="Content\DataTables\css\dataTables.bootstrap4.css" />
+    <Content Include="Content\DataTables\css\dataTables.bootstrap4.min.css" />
+    <Content Include="Content\DataTables\css\dataTables.foundation.css" />
+    <Content Include="Content\DataTables\css\dataTables.foundation.min.css" />
+    <Content Include="Content\DataTables\css\dataTables.jqueryui.css" />
+    <Content Include="Content\DataTables\css\dataTables.jqueryui.min.css" />
+    <Content Include="Content\DataTables\css\dataTables.material.css" />
+    <Content Include="Content\DataTables\css\dataTables.material.min.css" />
+    <Content Include="Content\DataTables\css\dataTables.semanticui.css" />
+    <Content Include="Content\DataTables\css\dataTables.semanticui.min.css" />
+    <Content Include="Content\DataTables\css\dataTables.uikit.css" />
+    <Content Include="Content\DataTables\css\dataTables.uikit.min.css" />
+    <Content Include="Content\DataTables\css\fixedColumns.bootstrap.css" />
+    <Content Include="Content\DataTables\css\fixedColumns.bootstrap.min.css" />
+    <Content Include="Content\DataTables\css\fixedColumns.dataTables.css" />
+    <Content Include="Content\DataTables\css\fixedColumns.dataTables.min.css" />
+    <Content Include="Content\DataTables\css\fixedColumns.foundation.css" />
+    <Content Include="Content\DataTables\css\fixedColumns.foundation.min.css" />
+    <Content Include="Content\DataTables\css\fixedColumns.jqueryui.css" />
+    <Content Include="Content\DataTables\css\fixedColumns.jqueryui.min.css" />
+    <Content Include="Content\DataTables\css\fixedHeader.bootstrap.css" />
+    <Content Include="Content\DataTables\css\fixedHeader.bootstrap.min.css" />
+    <Content Include="Content\DataTables\css\fixedHeader.dataTables.css" />
+    <Content Include="Content\DataTables\css\fixedHeader.dataTables.min.css" />
+    <Content Include="Content\DataTables\css\fixedHeader.foundation.css" />
+    <Content Include="Content\DataTables\css\fixedHeader.foundation.min.css" />
+    <Content Include="Content\DataTables\css\fixedHeader.jqueryui.css" />
+    <Content Include="Content\DataTables\css\fixedHeader.jqueryui.min.css" />
+    <Content Include="Content\DataTables\css\jquery.dataTables.css" />
+    <Content Include="Content\DataTables\css\jquery.dataTables.min.css" />
+    <Content Include="Content\DataTables\css\jquery.dataTables_themeroller.css" />
+    <Content Include="Content\DataTables\css\keyTable.bootstrap.css" />
+    <Content Include="Content\DataTables\css\keyTable.bootstrap.min.css" />
+    <Content Include="Content\DataTables\css\keyTable.dataTables.css" />
+    <Content Include="Content\DataTables\css\keyTable.dataTables.min.css" />
+    <Content Include="Content\DataTables\css\keyTable.foundation.css" />
+    <Content Include="Content\DataTables\css\keyTable.foundation.min.css" />
+    <Content Include="Content\DataTables\css\keyTable.jqueryui.css" />
+    <Content Include="Content\DataTables\css\keyTable.jqueryui.min.css" />
+    <Content Include="Content\DataTables\css\responsive.bootstrap.css" />
+    <Content Include="Content\DataTables\css\responsive.bootstrap.min.css" />
+    <Content Include="Content\DataTables\css\responsive.dataTables.css" />
+    <Content Include="Content\DataTables\css\responsive.dataTables.min.css" />
+    <Content Include="Content\DataTables\css\responsive.foundation.css" />
+    <Content Include="Content\DataTables\css\responsive.foundation.min.css" />
+    <Content Include="Content\DataTables\css\responsive.jqueryui.css" />
+    <Content Include="Content\DataTables\css\responsive.jqueryui.min.css" />
+    <Content Include="Content\DataTables\css\rowReorder.bootstrap.css" />
+    <Content Include="Content\DataTables\css\rowReorder.bootstrap.min.css" />
+    <Content Include="Content\DataTables\css\rowReorder.dataTables.css" />
+    <Content Include="Content\DataTables\css\rowReorder.dataTables.min.css" />
+    <Content Include="Content\DataTables\css\rowReorder.foundation.css" />
+    <Content Include="Content\DataTables\css\rowReorder.foundation.min.css" />
+    <Content Include="Content\DataTables\css\rowReorder.jqueryui.css" />
+    <Content Include="Content\DataTables\css\rowReorder.jqueryui.min.css" />
+    <Content Include="Content\DataTables\css\scroller.bootstrap.css" />
+    <Content Include="Content\DataTables\css\scroller.bootstrap.min.css" />
+    <Content Include="Content\DataTables\css\scroller.dataTables.css" />
+    <Content Include="Content\DataTables\css\scroller.dataTables.min.css" />
+    <Content Include="Content\DataTables\css\scroller.foundation.css" />
+    <Content Include="Content\DataTables\css\scroller.foundation.min.css" />
+    <Content Include="Content\DataTables\css\scroller.jqueryui.css" />
+    <Content Include="Content\DataTables\css\scroller.jqueryui.min.css" />
+    <Content Include="Content\DataTables\css\select.bootstrap.css" />
+    <Content Include="Content\DataTables\css\select.bootstrap.min.css" />
+    <Content Include="Content\DataTables\css\select.dataTables.css" />
+    <Content Include="Content\DataTables\css\select.dataTables.min.css" />
+    <Content Include="Content\DataTables\css\select.foundation.css" />
+    <Content Include="Content\DataTables\css\select.foundation.min.css" />
+    <Content Include="Content\DataTables\css\select.jqueryui.css" />
+    <Content Include="Content\DataTables\css\select.jqueryui.min.css" />
+    <Content Include="Content\DataTables\images\details_close.png" />
+    <Content Include="Content\DataTables\images\details_open.png" />
+    <Content Include="Content\DataTables\images\sort_asc.png" />
+    <Content Include="Content\DataTables\images\sort_asc_disabled.png" />
+    <Content Include="Content\DataTables\images\sort_both.png" />
+    <Content Include="Content\DataTables\images\sort_desc.png" />
+    <Content Include="Content\DataTables\images\sort_desc_disabled.png" />
+    <Content Include="Content\DataTables\swf\flashExport.swf" />
+    <Content Include="Content\themes\base\accordion.css" />
+    <Content Include="Content\themes\base\all.css" />
+    <Content Include="Content\themes\base\autocomplete.css" />
+    <Content Include="Content\themes\base\base.css" />
+    <Content Include="Content\themes\base\button.css" />
+    <Content Include="Content\themes\base\core.css" />
+    <Content Include="Content\themes\base\datepicker.css" />
+    <Content Include="Content\themes\base\dialog.css" />
+    <Content Include="Content\themes\base\draggable.css" />
+    <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
+    <Content Include="Content\themes\base\images\ui-bg_flat_75_ffffff_40x100.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_55_fbf9ee_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_65_ffffff_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_75_dadada_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_75_e6e6e6_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_95_fef1ec_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_highlight-soft_75_cccccc_1x100.png" />
+    <Content Include="Content\themes\base\images\ui-icons_222222_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_2e83ff_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_444444_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_454545_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_555555_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_777620_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_777777_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_888888_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_cc0000_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_cd0a0a_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_ffffff_256x240.png" />
+    <Content Include="Content\themes\base\jquery-ui.css" />
+    <Content Include="Content\themes\base\jquery-ui.min.css" />
+    <Content Include="Content\themes\base\menu.css" />
+    <Content Include="Content\themes\base\progressbar.css" />
+    <Content Include="Content\themes\base\resizable.css" />
+    <Content Include="Content\themes\base\selectable.css" />
+    <Content Include="Content\themes\base\selectmenu.css" />
+    <Content Include="Content\themes\base\slider.css" />
+    <Content Include="Content\themes\base\sortable.css" />
+    <Content Include="Content\themes\base\spinner.css" />
+    <Content Include="Content\themes\base\tabs.css" />
+    <Content Include="Content\themes\base\theme.css" />
+    <Content Include="Content\themes\base\tooltip.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Scripts\bootbox.js" />
+    <Content Include="Scripts\bootbox.min.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Content\DataTables\css\mixins.scss" />
+    <Content Include="Content\DataTables\css\common.scss" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
+    <Content Include="Scripts\DataTables\autoFill.bootstrap.js" />
+    <Content Include="Scripts\DataTables\autoFill.bootstrap.min.js" />
+    <Content Include="Scripts\DataTables\autoFill.foundation.js" />
+    <Content Include="Scripts\DataTables\autoFill.foundation.min.js" />
+    <Content Include="Scripts\DataTables\autoFill.jqueryui.js" />
+    <Content Include="Scripts\DataTables\autoFill.jqueryui.min.js" />
+    <Content Include="Scripts\DataTables\buttons.bootstrap.js" />
+    <Content Include="Scripts\DataTables\buttons.bootstrap.min.js" />
+    <Content Include="Scripts\DataTables\buttons.bootstrap4.js" />
+    <Content Include="Scripts\DataTables\buttons.bootstrap4.min.js" />
+    <Content Include="Scripts\DataTables\buttons.colVis.js" />
+    <Content Include="Scripts\DataTables\buttons.colVis.min.js" />
+    <Content Include="Scripts\DataTables\buttons.flash.js" />
+    <Content Include="Scripts\DataTables\buttons.flash.min.js" />
+    <Content Include="Scripts\DataTables\buttons.foundation.js" />
+    <Content Include="Scripts\DataTables\buttons.foundation.min.js" />
+    <Content Include="Scripts\DataTables\buttons.html5.js" />
+    <Content Include="Scripts\DataTables\buttons.html5.min.js" />
+    <Content Include="Scripts\DataTables\buttons.jqueryui.js" />
+    <Content Include="Scripts\DataTables\buttons.jqueryui.min.js" />
+    <Content Include="Scripts\DataTables\buttons.print.js" />
+    <Content Include="Scripts\DataTables\buttons.print.min.js" />
+    <Content Include="Scripts\DataTables\dataTables.autoFill.js" />
+    <Content Include="Scripts\DataTables\dataTables.autoFill.min.js" />
+    <Content Include="Scripts\DataTables\dataTables.bootstrap.js" />
+    <Content Include="Scripts\DataTables\dataTables.bootstrap.min.js" />
+    <Content Include="Scripts\DataTables\dataTables.bootstrap4.js" />
+    <Content Include="Scripts\DataTables\dataTables.bootstrap4.min.js" />
+    <Content Include="Scripts\DataTables\dataTables.buttons.js" />
+    <Content Include="Scripts\DataTables\dataTables.buttons.min.js" />
+    <Content Include="Scripts\DataTables\dataTables.colReorder.js" />
+    <Content Include="Scripts\DataTables\dataTables.colReorder.min.js" />
+    <Content Include="Scripts\DataTables\dataTables.fixedColumns.js" />
+    <Content Include="Scripts\DataTables\dataTables.fixedColumns.min.js" />
+    <Content Include="Scripts\DataTables\dataTables.fixedHeader.js" />
+    <Content Include="Scripts\DataTables\dataTables.fixedHeader.min.js" />
+    <Content Include="Scripts\DataTables\dataTables.foundation.js" />
+    <Content Include="Scripts\DataTables\dataTables.foundation.min.js" />
+    <Content Include="Scripts\DataTables\dataTables.jqueryui.js" />
+    <Content Include="Scripts\DataTables\dataTables.jqueryui.min.js" />
+    <Content Include="Scripts\DataTables\dataTables.keyTable.js" />
+    <Content Include="Scripts\DataTables\dataTables.keyTable.min.js" />
+    <Content Include="Scripts\DataTables\dataTables.material.js" />
+    <Content Include="Scripts\DataTables\dataTables.material.min.js" />
+    <Content Include="Scripts\DataTables\dataTables.responsive.js" />
+    <Content Include="Scripts\DataTables\dataTables.responsive.min.js" />
+    <Content Include="Scripts\DataTables\dataTables.rowReorder.js" />
+    <Content Include="Scripts\DataTables\dataTables.rowReorder.min.js" />
+    <Content Include="Scripts\DataTables\dataTables.scroller.js" />
+    <Content Include="Scripts\DataTables\dataTables.scroller.min.js" />
+    <Content Include="Scripts\DataTables\dataTables.select.js" />
+    <Content Include="Scripts\DataTables\dataTables.select.min.js" />
+    <Content Include="Scripts\DataTables\dataTables.semanticui.js" />
+    <Content Include="Scripts\DataTables\dataTables.semanticui.min.js" />
+    <Content Include="Scripts\DataTables\dataTables.uikit.js" />
+    <Content Include="Scripts\DataTables\dataTables.uikit.min.js" />
+    <Content Include="Scripts\DataTables\jquery.dataTables.js" />
+    <Content Include="Scripts\DataTables\jquery.dataTables.min.js" />
+    <Content Include="Scripts\DataTables\responsive.bootstrap.js" />
+    <Content Include="Scripts\DataTables\responsive.bootstrap.min.js" />
+    <Content Include="Scripts\DataTables\responsive.foundation.js" />
+    <Content Include="Scripts\DataTables\responsive.foundation.min.js" />
+    <Content Include="Scripts\DataTables\responsive.jqueryui.js" />
+    <Content Include="Scripts\DataTables\responsive.jqueryui.min.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />
     <Content Include="Scripts\jquery-3.3.1.slim.js" />
     <Content Include="Scripts\jquery-3.3.1.slim.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery-ui-1.12.1.js" />
+    <Content Include="Scripts\jquery-ui-1.12.1.min.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="Views\Movies\seat.css" />
+    <Content Include="Views\Movies\seat.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -235,9 +652,20 @@
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
+    <Content Include="Views\Customer\Details.cshtml" />
+    <Content Include="Views\Customer\Index.cshtml" />
+    <Content Include="Views\Movies\Index.cshtml" />
+    <Content Include="Views\Movies\Random.cshtml" />
+    <Content Include="Views\Shared\_NavBar.cshtml" />
+    <Content Include="Views\Movies\Details.cshtml" />
+    <Content Include="Views\Customer\CustomerForm.cshtml" />
+    <Content Include="Views\Movies\MovieForm.cshtml" />
+    <Content Include="Views\Screenings\ScreeningForm.cshtml" />
+    <Content Include="Views\Ticket\ChooseSeat.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="UploadedFiles\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
@@ -251,6 +679,128 @@
     <None Include="packages.config" />
     <Content Include="Scripts\jquery-3.3.1.slim.min.map" />
     <Content Include="Scripts\jquery-3.3.1.min.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\202101050955280_InitialModel.resx">
+      <DependentUpon>202101050955280_InitialModel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202101061836366_AddIsSubscribedToCustomer.resx">
+      <DependentUpon>202101061836366_AddIsSubscribedToCustomer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202101061847066_AddMembershipType.resx">
+      <DependentUpon>202101061847066_AddMembershipType.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202101061850273_PopulateMembershipTypes.resx">
+      <DependentUpon>202101061850273_PopulateMembershipTypes.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202101061913247_ApplyAnnotationsToCustomerName.resx">
+      <DependentUpon>202101061913247_ApplyAnnotationsToCustomerName.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202101062039176_AddNameToMembershipType.resx">
+      <DependentUpon>202101062039176_AddNameToMembershipType.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202101062043292_SetNameOfMembershipTypes.resx">
+      <DependentUpon>202101062043292_SetNameOfMembershipTypes.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202101062056179_AddBirthdateToCustomer.resx">
+      <DependentUpon>202101062056179_AddBirthdateToCustomer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202101062116009_AddMovie.resx">
+      <DependentUpon>202101062116009_AddMovie.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202101062126007_AddMovie1.resx">
+      <DependentUpon>202101062126007_AddMovie1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202101070626509_Genres.resx">
+      <DependentUpon>202101070626509_Genres.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202101081926090_test.resx">
+      <DependentUpon>202101081926090_test.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202101141240462_AddNewFieldsToMovie.resx">
+      <DependentUpon>202101141240462_AddNewFieldsToMovie.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202101161054124_ChangedPosterNamePropertyToFile.resx">
+      <DependentUpon>202101161054124_ChangedPosterNamePropertyToFile.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202101161126370_RemoveNumberInStockPropertyFromMovies.resx">
+      <DependentUpon>202101161126370_RemoveNumberInStockPropertyFromMovies.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202101161131330_AddHasLimitiationToMovies.resx">
+      <DependentUpon>202101161131330_AddHasLimitiationToMovies.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202101161338259_testtt.resx">
+      <DependentUpon>202101161338259_testtt.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202101161429536_testtt1.resx">
+      <DependentUpon>202101161429536_testtt1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202101171232100_AddTicket.resx">
+      <DependentUpon>202101171232100_AddTicket.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202101171325137_AddTicket1.resx">
+      <DependentUpon>202101171325137_AddTicket1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202101171333183_AddHall.resx">
+      <DependentUpon>202101171333183_AddHall.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202101191708531_AddSeat.resx">
+      <DependentUpon>202101191708531_AddSeat.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202101191749001_AddScreening.resx">
+      <DependentUpon>202101191749001_AddScreening.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202101191816066_ModifyTicket.resx">
+      <DependentUpon>202101191816066_ModifyTicket.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202101191844057_ModifyTicket1.resx">
+      <DependentUpon>202101191844057_ModifyTicket1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202101191849354_ModifyTicket2.resx">
+      <DependentUpon>202101191849354_ModifyTicket2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202101191856026_ModifyTicket3.resx">
+      <DependentUpon>202101191856026_ModifyTicket3.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202101191938555_ModifyModules.resx">
+      <DependentUpon>202101191938555_ModifyModules.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202101191944589_ModifyScreenings.resx">
+      <DependentUpon>202101191944589_ModifyScreenings.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202101192019424_PopulateHall.resx">
+      <DependentUpon>202101192019424_PopulateHall.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202101192035386_PopulateHallNew.resx">
+      <DependentUpon>202101192035386_PopulateHallNew.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202101210646392_ModifySeat.resx">
+      <DependentUpon>202101210646392_ModifySeat.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202101210812590_DeleteSeatAndModifyTicket.resx">
+      <DependentUpon>202101210812590_DeleteSeatAndModifyTicket.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202101210829556_ModifyScreenings1.resx">
+      <DependentUpon>202101210829556_ModifyScreenings1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202101210831562_ModifyTickets.resx">
+      <DependentUpon>202101210831562_ModifyTickets.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202101210914269_ModifyTickets1.resx">
+      <DependentUpon>202101210914269_ModifyTickets1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202101210943100_ModifyTickets11.resx">
+      <DependentUpon>202101210943100_ModifyTickets11.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202101210946526_ModifyTicketsNew.resx">
+      <DependentUpon>202101210946526_ModifyTicketsNew.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202101210959396_ModifyTicketsNew1.resx">
+      <DependentUpon>202101210959396_ModifyTicketsNew1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202101211136330_TicketsModify.resx">
+      <DependentUpon>202101211136330_TicketsModify.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

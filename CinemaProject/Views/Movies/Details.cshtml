@@ -1,0 +1,52 @@
+﻿@model CinemaProject.ViewModel.MovieDetailsFormViewModel
+
+
+@{
+    ViewBag.Title = Model.Movie.Name;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>@Model.Movie.Name</h2>
+<ul>
+    <li>Genre: @Model.Movie.Genre.Name</li>
+    <li>Release Date: @Model.Movie.ReleaseDate.ToLongDateString()</li>
+    <li>Date Added: @Model.Movie.DateAdded.ToLongDateString()</li>
+    <li>Plot: @Model.Movie.Plot</li>
+</ul>
+<table id="movies" class="table table-bordered table-hover">
+    <thead>
+    <tr>
+        <th>Date</th>
+        <th>Hall</th>
+        <th>Price</th>
+        <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var movie in Model.Screenings)
+    {
+        <tr>
+            <td>@movie.Date</td>
+            <td>@movie.HallId</td>
+            <td>@movie.Price</td>
+            <td>@Html.ActionLink("Buy", "ChooseSeat", "Ticket", new { date = movie.Date, hallId = movie.HallId }, new { @class = "btn btn-primary" })</td>
+            @*<td>
+                @Html.ActionLink("Edit", "Edit", "Movies", new { id = movie.Id }, null) |
+                <button data-movie-id="@movie.Id" class="btn-link js-delete">Delete</button> |
+                @Html.ActionLink("Details", "Details", "Movies", new { id = movie.Id }, null)
+            </td>*@
+        </tr>
+    }
+    </tbody>
+</table>
+
+@*<div>
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+    </dl>
+</div>*@
