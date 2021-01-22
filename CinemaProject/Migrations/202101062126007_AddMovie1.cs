@@ -22,7 +22,7 @@ namespace CinemaProject.Migrations
             AddColumn("dbo.Movies", "NumberInStock", c => c.Byte(nullable: false));
             AlterColumn("dbo.Movies", "Name", c => c.String(nullable: false, maxLength: 255));
             CreateIndex("dbo.Movies", "GenreId");
-            AddForeignKey("dbo.Movies", "GenreId", "dbo.Genres", "Id", cascadeDelete: true);
+            AddForeignKey("dbo.Movies", "GenreId", "dbo.Genres", "CustomerUserId", cascadeDelete: true);
         }
         
         public override void Down()

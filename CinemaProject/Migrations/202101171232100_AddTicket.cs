@@ -30,9 +30,9 @@ namespace CinemaProject.Migrations
         public override void Down()
         {
             DropForeignKey("dbo.Tickets", "MovieId", "dbo.Movies");
-            DropForeignKey("dbo.Tickets", "CustomerId", "dbo.Customers");
+            DropForeignKey("dbo.Tickets", "CustomerUserId", "dbo.Customers");
             DropIndex("dbo.Tickets", new[] { "MovieId" });
-            DropIndex("dbo.Tickets", new[] { "CustomerId" });
+            DropIndex("dbo.Tickets", new[] { "CustomerUserId" });
             DropTable("dbo.Tickets");
         }
     }

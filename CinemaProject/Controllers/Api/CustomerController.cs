@@ -25,9 +25,9 @@ namespace CinemaProject.Controllers.Api
             return Ok(_context.Customers.ToList().Select(Mapper.Map<Customer, CustomerDto>));
         }
 
-        public IHttpActionResult GetCustomer(int id)
+        public IHttpActionResult GetCustomer(string id)
         {
-            var customer = _context.Customers.SingleOrDefault(c => c.Id == id);
+            var customer = _context.Customers.SingleOrDefault(c => c.CustomerUserId == id);
 
             if (customer == null)
             {
@@ -47,18 +47,18 @@ namespace CinemaProject.Controllers.Api
             _context.Customers.Add(customer);
             _context.SaveChanges();
 
-            customerDto.Id = customer.Id;
+            customerDto.Id = customer.CustomerUserId;
 
-            return Created(new Uri(Request.RequestUri + "/" + customer.Id), customerDto);
+            return Created(new Uri(Request.RequestUri + "/" + customer.CustomerUserId), customerDto);
         }
 
         [HttpPut]
-        public IHttpActionResult UpdateCustomer(int id, CustomerDto customerDto)
+        public IHttpActionResult UpdateCustomer(string id, CustomerDto customerDto)
         {
             if (!ModelState.IsValid)
                 throw new HttpResponseException(HttpStatusCode.BadRequest);
 
-            var customerInDb = _context.Customers.SingleOrDefault(c => c.Id == id);
+            var customerInDb = _context.Customers.SingleOrDefault(c => c.CustomerUserId == id);
 
             if (customerInDb == null)
                 return NotFound();
@@ -70,9 +70,9 @@ namespace CinemaProject.Controllers.Api
         }
 
         [HttpDelete]
-        public IHttpActionResult DeleteCustomer(int id)
+        public IHttpActionResult DeleteCustomer(string id)
         {
-            var customerInDb = _context.Customers.SingleOrDefault(c => c.Id == id);
+            var customerInDb = _context.Customers.SingleOrDefault(c => c.CustomerUserId == id);
 
             if (customerInDb == null)
                 return NotFound();

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace CinemaProject.Models
@@ -64,6 +65,16 @@ namespace CinemaProject.Models
 
     public class RegisterViewModel
     {
+
+        [Required]
+        [StringLength(255)]
+        [Display(Name = "Name")]
+        public string NameOfUser { get; set; }
+
+        [Required]
+        [Display(Name = "Birth Date")]
+        public DateTime BirthDate { get; set; }
+
         [Required]
         [EmailAddress]
         [Display(Name = "Email")]

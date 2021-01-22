@@ -9,7 +9,7 @@ namespace CinemaProject.Dtos
 {
     public class CustomerDto
     {
-        public int Id { get; set; }
+        public string Id { get; set; }
 
         [Required]
         [StringLength(255)]

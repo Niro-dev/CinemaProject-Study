@@ -15,17 +15,17 @@ namespace CinemaProject.Migrations
             DropIndex("dbo.Tickets", new[] { "SeatNumber", "HallId" });
             DropPrimaryKey("dbo.Halls");
             DropPrimaryKey("dbo.Seats");
-            AlterColumn("dbo.Halls", "Id", c => c.Byte(nullable: false));
+            AlterColumn("dbo.Halls", "CustomerUserId", c => c.Byte(nullable: false));
             AlterColumn("dbo.Screenings", "HallId", c => c.Byte(nullable: false));
             AlterColumn("dbo.Seats", "HallId", c => c.Byte(nullable: false));
             AlterColumn("dbo.Tickets", "HallId", c => c.Byte(nullable: false));
-            AddPrimaryKey("dbo.Halls", "Id");
+            AddPrimaryKey("dbo.Halls", "CustomerUserId");
             AddPrimaryKey("dbo.Seats", new[] { "SeatNumber", "HallId" });
             CreateIndex("dbo.Screenings", "HallId");
             CreateIndex("dbo.Seats", "HallId");
             CreateIndex("dbo.Tickets", new[] { "SeatNumber", "HallId" });
-            AddForeignKey("dbo.Screenings", "HallId", "dbo.Halls", "Id", cascadeDelete: true);
-            AddForeignKey("dbo.Seats", "HallId", "dbo.Halls", "Id", cascadeDelete: true);
+            AddForeignKey("dbo.Screenings", "HallId", "dbo.Halls", "CustomerUserId", cascadeDelete: true);
+            AddForeignKey("dbo.Seats", "HallId", "dbo.Halls", "CustomerUserId", cascadeDelete: true);
             AddForeignKey("dbo.Tickets", new[] { "SeatNumber", "HallId" }, "dbo.Seats", new[] { "SeatNumber", "HallId" }, cascadeDelete: true);
         }
         
@@ -42,15 +42,15 @@ namespace CinemaProject.Migrations
             AlterColumn("dbo.Tickets", "HallId", c => c.Int(nullable: false));
             AlterColumn("dbo.Seats", "HallId", c => c.Int(nullable: false));
             AlterColumn("dbo.Screenings", "HallId", c => c.Int(nullable: false));
-            AlterColumn("dbo.Halls", "Id", c => c.Int(nullable: false, identity: true));
+            AlterColumn("dbo.Halls", "CustomerUserId", c => c.Int(nullable: false, identity: true));
             AddPrimaryKey("dbo.Seats", new[] { "SeatNumber", "HallId" });
-            AddPrimaryKey("dbo.Halls", "Id");
+            AddPrimaryKey("dbo.Halls", "CustomerUserId");
             CreateIndex("dbo.Tickets", new[] { "SeatNumber", "HallId" });
             CreateIndex("dbo.Seats", "HallId");
             CreateIndex("dbo.Screenings", "HallId");
             AddForeignKey("dbo.Tickets", new[] { "SeatNumber", "HallId" }, "dbo.Seats", new[] { "SeatNumber", "HallId" }, cascadeDelete: true);
-            AddForeignKey("dbo.Seats", "HallId", "dbo.Halls", "Id", cascadeDelete: true);
-            AddForeignKey("dbo.Screenings", "HallId", "dbo.Halls", "Id", cascadeDelete: true);
+            AddForeignKey("dbo.Seats", "HallId", "dbo.Halls", "CustomerUserId", cascadeDelete: true);
+            AddForeignKey("dbo.Screenings", "HallId", "dbo.Halls", "CustomerUserId", cascadeDelete: true);
         }
     }
 }

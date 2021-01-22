@@ -9,11 +9,11 @@ namespace CinemaProject.Migrations
         {
             Sql("SET IDENTITY_INSERT Halls ON");
 
-            Sql("INSERT INTO Halls (Id) VALUES (1)");
-            Sql("INSERT INTO Halls (Id) VALUES (2)");
-            Sql("INSERT INTO Halls (Id) VALUES (3)");
-            Sql("INSERT INTO Halls (Id) VALUES (4)");
-            Sql("INSERT INTO Halls (Id) VALUES (5)");
+            Sql("INSERT INTO Halls (CustomerUserId) VALUES (1)");
+            Sql("INSERT INTO Halls (CustomerUserId) VALUES (2)");
+            Sql("INSERT INTO Halls (CustomerUserId) VALUES (3)");
+            Sql("INSERT INTO Halls (CustomerUserId) VALUES (4)");
+            Sql("INSERT INTO Halls (CustomerUserId) VALUES (5)");
 
             Sql("SET IDENTITY_INSERT Halls OFF");
         }

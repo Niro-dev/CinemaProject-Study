@@ -48,9 +48,9 @@ namespace CinemaProject.Migrations
             DropColumn("dbo.Tickets", "RowNumber");
             DropColumn("dbo.Tickets", "SeatNumber");
             DropColumn("dbo.Tickets", "ScreeningDate");
-            AddPrimaryKey("dbo.Tickets", new[] { "CustomerId", "MovieId", "Date", "Time", "Seat", "Row", "Hall" });
+            AddPrimaryKey("dbo.Tickets", new[] { "CustomerUserId", "MovieId", "Date", "Time", "Seat", "Row", "Hall" });
             CreateIndex("dbo.Tickets", "MovieId");
-            AddForeignKey("dbo.Tickets", "MovieId", "dbo.Movies", "Id", cascadeDelete: true);
+            AddForeignKey("dbo.Tickets", "MovieId", "dbo.Movies", "CustomerUserId", cascadeDelete: true);
         }
     }
 }

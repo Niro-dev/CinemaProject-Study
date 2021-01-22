@@ -11,8 +11,8 @@ namespace CinemaProject.Migrations
             DropIndex("dbo.Tickets", new[] { "ScreeningDate" });
             DropPrimaryKey("dbo.Tickets");
             AlterColumn("dbo.Tickets", "ScreeningDate", c => c.DateTime());
-            AlterColumn("dbo.Tickets", "Id", c => c.Int(nullable: false, identity: true));
-            AddPrimaryKey("dbo.Tickets", "Id");
+            AlterColumn("dbo.Tickets", "CustomerUserId", c => c.Int(nullable: false, identity: true));
+            AddPrimaryKey("dbo.Tickets", "CustomerUserId");
             CreateIndex("dbo.Tickets", "ScreeningDate");
             AddForeignKey("dbo.Tickets", "ScreeningDate", "dbo.Screenings", "Date");
         }
@@ -22,7 +22,7 @@ namespace CinemaProject.Migrations
             DropForeignKey("dbo.Tickets", "ScreeningDate", "dbo.Screenings");
             DropIndex("dbo.Tickets", new[] { "ScreeningDate" });
             DropPrimaryKey("dbo.Tickets");
-            AlterColumn("dbo.Tickets", "Id", c => c.Int(nullable: false));
+            AlterColumn("dbo.Tickets", "CustomerUserId", c => c.Int(nullable: false));
             AlterColumn("dbo.Tickets", "ScreeningDate", c => c.DateTime(nullable: false));
             AddPrimaryKey("dbo.Tickets", new[] { "ScreeningDate", "SeatNumber", "RowNumber", "HallId" });
             CreateIndex("dbo.Tickets", "ScreeningDate");

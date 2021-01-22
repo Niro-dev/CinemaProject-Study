@@ -19,7 +19,7 @@ namespace CinemaProject.App_Start
 
             // Dto to Domain
             Mapper.CreateMap<CustomerDto, Customer>()
-                .ForMember(c => c.Id, opt => opt.Ignore());
+                .ForMember(c => c.CustomerUserId, opt => opt.Ignore());
 
             Mapper.CreateMap<MovieDto, Movie>()
                 .ForMember(c => c.Id, opt => opt.Ignore());

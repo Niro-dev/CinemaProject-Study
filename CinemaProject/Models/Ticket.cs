@@ -27,13 +27,11 @@ namespace CinemaProject.Models
         [Column(Order = 3)]
         public byte HallId { get; set; }
 
+        
+        public string CustomerUserId { get; set; }
 
-
-
-        //public int CustomerId { get; set; }
-
-        //[ForeignKey("CustomerId")]
-        //public Customer Customer { get; set; }
+        [ForeignKey("CustomerUserId")]
+        public Customer Customer { get; set; }
 
         public DateTime? CreationTime { get; set; }
 

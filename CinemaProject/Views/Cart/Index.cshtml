@@ -1,0 +1,57 @@
+﻿@using Microsoft.AspNet.Identity
+@model IEnumerable<CinemaProject.Models.Ticket>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Hello @ViewBag.userName, This is your cart</h2>
+
+<table id="tickets" class="table table-bordered table-hover">
+    <thead>
+        <tr>
+            <th>Movie Name</th>
+            <th>Date</th>
+            <th>Hall</th>
+            <th>Seat Number</th>
+            <th>Price</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+    @foreach (var ticket in Model)
+    {
+        <tr>
+            <td>@Html.ActionLink(ticket.Screening.Movie.Name, "Details", "Movies", new { id = ticket.Screening.MovieId }, null)</td>
+            <td>@ticket.Date</td>
+            <td>@ticket.HallId</td>
+            <td>@ticket.SeatNumber</td>
+            <td>@ticket.Screening.Price</td>
+            <td>@Html.ActionLink("Remove", "RemoveTicketFromCart", "Ticket", new { seat = ticket.SeatNumber, date = ticket.Date, hall = ticket.HallId }, null)</td>
+        </tr>
+    }
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td>Total:</td>
+        <td>@ViewBag.lastPrice</td>
+        <td></td>
+    </tr>
+    </tbody>
+</table>
+
+<p>
+    @Html.ActionLink("Clear Cart", "RemoveAllFromCart", "Ticket", new { userId = User.Identity.GetUserId()}, new { @class = "btn btn-primary" })
+    @Html.ActionLink("Checkout", "Checkout", "Cart", null, new { @class = "btn btn-primary" })
+    @Html.ActionLink("Continue Shopping", "Index", "Movies", null, new { @class = "btn btn-primary" })
+</p>
+

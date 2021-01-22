@@ -184,6 +184,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\Api\MoviesController.cs" />
     <Compile Include="Controllers\Api\CustomerController.cs" />
+    <Compile Include="Controllers\CartController.cs" />
     <Compile Include="Controllers\CustomerController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
@@ -355,6 +356,38 @@
     <Compile Include="Migrations\202101211136330_TicketsModify.Designer.cs">
       <DependentUpon>202101211136330_TicketsModify.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202101220658182_modify.cs" />
+    <Compile Include="Migrations\202101220658182_modify.Designer.cs">
+      <DependentUpon>202101220658182_modify.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202101220659129_modify1.cs" />
+    <Compile Include="Migrations\202101220659129_modify1.Designer.cs">
+      <DependentUpon>202101220659129_modify1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202101220702420_SeedAdmin.cs" />
+    <Compile Include="Migrations\202101220702420_SeedAdmin.Designer.cs">
+      <DependentUpon>202101220702420_SeedAdmin.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202101220735190_AddFieldsToApplicationUser.cs" />
+    <Compile Include="Migrations\202101220735190_AddFieldsToApplicationUser.Designer.cs">
+      <DependentUpon>202101220735190_AddFieldsToApplicationUser.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202101221027343_SeedAdmin1.cs" />
+    <Compile Include="Migrations\202101221027343_SeedAdmin1.Designer.cs">
+      <DependentUpon>202101221027343_SeedAdmin1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202101221106251_ModifyCustomer.cs" />
+    <Compile Include="Migrations\202101221106251_ModifyCustomer.Designer.cs">
+      <DependentUpon>202101221106251_ModifyCustomer.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202101221118035_ModifyCustomerIdToString.cs" />
+    <Compile Include="Migrations\202101221118035_ModifyCustomerIdToString.Designer.cs">
+      <DependentUpon>202101221118035_ModifyCustomerIdToString.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202101221131232_AddCustomerIdToTicket.cs" />
+    <Compile Include="Migrations\202101221131232_AddCustomerIdToTicket.Designer.cs">
+      <DependentUpon>202101221131232_AddCustomerIdToTicket.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Customer.cs" />
@@ -368,6 +401,7 @@
     <Compile Include="Models\Ticket.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
+    <Compile Include="ViewModel\CartViewModel.cs" />
     <Compile Include="ViewModel\CustomerFormViewModel.cs" />
     <Compile Include="ViewModel\MovieFormViewModel.cs" />
     <Compile Include="ViewModel\RandomMovieViewModel.cs" />
@@ -662,6 +696,8 @@
     <Content Include="Views\Movies\MovieForm.cshtml" />
     <Content Include="Views\Screenings\ScreeningForm.cshtml" />
     <Content Include="Views\Ticket\ChooseSeat.cshtml" />
+    <Content Include="Views\Ticket\Payment.cshtml" />
+    <Content Include="Views\Cart\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -800,6 +836,30 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202101211136330_TicketsModify.resx">
       <DependentUpon>202101211136330_TicketsModify.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202101220658182_modify.resx">
+      <DependentUpon>202101220658182_modify.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202101220659129_modify1.resx">
+      <DependentUpon>202101220659129_modify1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202101220702420_SeedAdmin.resx">
+      <DependentUpon>202101220702420_SeedAdmin.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202101220735190_AddFieldsToApplicationUser.resx">
+      <DependentUpon>202101220735190_AddFieldsToApplicationUser.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202101221027343_SeedAdmin1.resx">
+      <DependentUpon>202101221027343_SeedAdmin1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202101221106251_ModifyCustomer.resx">
+      <DependentUpon>202101221106251_ModifyCustomer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202101221118035_ModifyCustomerIdToString.resx">
+      <DependentUpon>202101221118035_ModifyCustomerIdToString.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202101221131232_AddCustomerIdToTicket.resx">
+      <DependentUpon>202101221131232_AddCustomerIdToTicket.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

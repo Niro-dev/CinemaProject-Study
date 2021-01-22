@@ -31,9 +31,9 @@
             <td>@movie.Price</td>
             <td>@Html.ActionLink("Buy", "ChooseSeat", "Ticket", new { date = movie.Date, hallId = movie.HallId }, new { @class = "btn btn-primary" })</td>
             @*<td>
-                @Html.ActionLink("Edit", "Edit", "Movies", new { id = movie.Id }, null) |
-                <button data-movie-id="@movie.Id" class="btn-link js-delete">Delete</button> |
-                @Html.ActionLink("Details", "Details", "Movies", new { id = movie.Id }, null)
+                @Html.ActionLink("Edit", "Edit", "Movies", new { id = movie.CustomerUserId }, null) |
+                <button data-movie-id="@movie.CustomerUserId" class="btn-link js-delete">Delete</button> |
+                @Html.ActionLink("Details", "Details", "Movies", new { id = movie.CustomerUserId }, null)
             </td>*@
         </tr>
     }

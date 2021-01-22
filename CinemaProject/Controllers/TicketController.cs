@@ -8,6 +8,7 @@ using System.Web.Mvc;
 using CinemaProject.Models;
 using CinemaProject.ViewModel;
 using System.Globalization;
+using Microsoft.AspNet.Identity;
 
 namespace CinemaProject.Controllers
 {
@@ -67,12 +68,47 @@ namespace CinemaProject.Controllers
 
             ticket.CreationTime = DateTime.Now;
             ticket.Date = DateTime.ParseExact(ticket.Date.ToString(), "MM/dd/yyyy HH:mm:ss", null);
+            ticket.CustomerUserId = User.Identity.GetUserId();
 
             _context.Tickets.Add(ticket);
 
             _context.SaveChanges();
 
             return RedirectToAction("Index", "Home");
+        }
+
+
+        public ActionResult RemoveTicketFromCart(short seat, DateTime? date, byte hall)
+        {
+            var ticketInDb = _context.Tickets
+                .Find(seat,date,hall);
+
+            if (ticketInDb == null)
+                return HttpNotFound();
+
+            _context.Tickets.Remove(ticketInDb);
+            _context.SaveChanges();
+            return RedirectToAction("Index", "Cart");
+        }
+
+        public ActionResult RemoveAllFromCart(string userId)
+        {
+            var ticketInDb = _context.Tickets
+                .Where(t=> !t.Paid && t.CustomerUserId.Equals(userId));
+
+            foreach (var ticket in ticketInDb)
+            {
+                _context.Tickets.Remove(ticket);
+            }
+            _context.SaveChanges();
+            return RedirectToAction("Index", "Cart");
+        }
+
+
+        public ActionResult Payment()
+        {
+            ViewBag.s = User.Identity.GetUserId();
+            return View();
         }
 
         // GET: Seat

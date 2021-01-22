@@ -11,7 +11,7 @@ namespace CinemaProject.Migrations
             DropForeignKey("dbo.Tickets", "ScreeningDate", "dbo.Screenings");
             DropIndex("dbo.Tickets", new[] { "SeatNumber", "RowNumber", "HallId" });
             DropPrimaryKey("dbo.Tickets");
-            AddColumn("dbo.Tickets", "Id", c => c.Int(nullable: false));
+            AddColumn("dbo.Tickets", "CustomerUserId", c => c.Int(nullable: false));
             AddPrimaryKey("dbo.Tickets", "ScreeningDate");
             AddForeignKey("dbo.Tickets", "ScreeningDate", "dbo.Screenings", "Date");
             DropColumn("dbo.Tickets", "SeatNumber");
@@ -26,7 +26,7 @@ namespace CinemaProject.Migrations
             AddColumn("dbo.Tickets", "SeatNumber", c => c.Short(nullable: false));
             DropForeignKey("dbo.Tickets", "ScreeningDate", "dbo.Screenings");
             DropPrimaryKey("dbo.Tickets");
-            DropColumn("dbo.Tickets", "Id");
+            DropColumn("dbo.Tickets", "CustomerUserId");
             AddPrimaryKey("dbo.Tickets", new[] { "ScreeningDate", "SeatNumber", "RowNumber", "HallId" });
             CreateIndex("dbo.Tickets", new[] { "SeatNumber", "RowNumber", "HallId" });
             AddForeignKey("dbo.Tickets", "ScreeningDate", "dbo.Screenings", "Date", cascadeDelete: true);

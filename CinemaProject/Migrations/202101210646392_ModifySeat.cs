@@ -44,7 +44,7 @@ namespace CinemaProject.Migrations
             CreateIndex("dbo.Seats", "HallId");
             AddForeignKey("dbo.Tickets", new[] { "SeatNumber", "HallId" }, "dbo.Seats", new[] { "SeatNumber", "HallId" }, cascadeDelete: true);
             AddForeignKey("dbo.Tickets", "ScreeningDate", "dbo.Screenings", "Date");
-            AddForeignKey("dbo.Seats", "HallId", "dbo.Halls", "Id", cascadeDelete: true);
+            AddForeignKey("dbo.Seats", "HallId", "dbo.Halls", "CustomerUserId", cascadeDelete: true);
         }
     }
 }

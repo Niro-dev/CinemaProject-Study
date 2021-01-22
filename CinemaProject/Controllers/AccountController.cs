@@ -9,6 +9,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using CinemaProject.Models;
+using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace CinemaProject.Controllers
 {
@@ -17,9 +18,12 @@ namespace CinemaProject.Controllers
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
+        private ApplicationDbContext _context;
+
 
         public AccountController()
         {
+            _context = new ApplicationDbContext();
         }
 
         public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager )
@@ -151,17 +155,38 @@ namespace CinemaProject.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
+                var user = new ApplicationUser
+                {
+                    UserName = model.Email,
+                    Email = model.Email,
+                    NameOfUser = model.NameOfUser,
+                    BirthDate = model.BirthDate
+                };
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
+                    _context.Customers.Add(new Customer
+                    {
+                        CustomerUserId = user.Id,
+                        Name = user.NameOfUser,
+                        Birthdate = user.BirthDate
+                    });
+                    _context.SaveChanges();
+
+                    //var roleStore = new RoleStore<IdentityRole>(new ApplicationDbContext());
+                    //var roleManager = new RoleManager<IdentityRole>(roleStore);
+                    //await roleManager.CreateAsync(new IdentityRole("Admin"));
+                    //await UserManager.AddToRoleAsync(user.CustomerUserId, "Admin");
+
+                    
+
                     await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
                     
                     // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=320771
                     // Send an email with this link
-                    // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
-                    // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
-                    // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
+                    // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.CustomerUserId);
+                    // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.CustomerUserId, code = code }, protocol: Request.Url.Scheme);
+                    // await UserManager.SendEmailAsync(user.CustomerUserId, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
 
                     return RedirectToAction("Index", "Home");
                 }
@@ -211,9 +236,9 @@ namespace CinemaProject.Controllers
 
                 // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=320771
                 // Send an email with this link
-                // string code = await UserManager.GeneratePasswordResetTokenAsync(user.Id);
-                // var callbackUrl = Url.Action("ResetPassword", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);		
-                // await UserManager.SendEmailAsync(user.Id, "Reset Password", "Please reset your password by clicking <a href=\"" + callbackUrl + "\">here</a>");
+                // string code = await UserManager.GeneratePasswordResetTokenAsync(user.CustomerUserId);
+                // var callbackUrl = Url.Action("ResetPassword", "Account", new { userId = user.CustomerUserId, code = code }, protocol: Request.Url.Scheme);		
+                // await UserManager.SendEmailAsync(user.CustomerUserId, "Reset Password", "Please reset your password by clicking <a href=\"" + callbackUrl + "\">here</a>");
                 // return RedirectToAction("ForgotPasswordConfirmation", "Account");
             }
 
@@ -405,6 +430,7 @@ namespace CinemaProject.Controllers
 
         protected override void Dispose(bool disposing)
         {
+            _context.Dispose();
             if (disposing)
             {
                 if (_userManager != null)
