@@ -27,7 +27,9 @@
             <td>@ticket.HallId</td>
             <td>@ticket.SeatNumber</td>
             <td>@ticket.Screening.Price</td>
-            <td>@Html.ActionLink("Remove", "RemoveTicketFromCart", "Ticket", new { seat = ticket.SeatNumber, date = ticket.Date, hall = ticket.HallId }, null)</td>
+            <td>@Html.ActionLink("Remove", "RemoveTicketFromCart", "Ticket", new { seat = ticket.SeatNumber, date = ticket.Date, hall = ticket.HallId }, null) | 
+                @Html.ActionLink("Change Seat", "ChangeSeat", "Ticket", new { date = ticket.Date, hallId = ticket.HallId, seat = ticket.SeatNumber }, null)
+            </td>
         </tr>
     }
     <tr>

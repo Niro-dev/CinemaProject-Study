@@ -74,7 +74,7 @@ namespace CinemaProject.Controllers
             }
 
             var screen = _context.Screenings
-                .Where(s => s.MovieId == id)
+                .Where(s => s.MovieId == id && s.Date > DateTime.Now)
                 .ToList();
 
             var viewModel = new MovieDetailsFormViewModel
