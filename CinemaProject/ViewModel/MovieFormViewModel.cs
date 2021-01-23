@@ -17,7 +17,7 @@ namespace CinemaProject.ViewModel
                 if (Movie != null && Movie.Id != 0)
                     return "Edit Movie";
 
-                return "New Movie";
+                return "Index Movie";
             }
         }
     }

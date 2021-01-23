@@ -30,7 +30,10 @@
             <td>@movie.HallId</td>
             <td>@movie.Price</td>
             <td>
-                @Html.ActionLink("Choose Seat", "ChooseSeat", "Ticket", new { date = movie.Date, hallId = movie.HallId }, new { @class = "btn btn-primary" })
+                @Html.ActionLink("Choose Seat", "ChooseSeat", "Ticket", new { date = movie.Date, hallId = movie.HallId }, new { @class = "btn btn-primary" }) |
+                @Html.ActionLink("Edit", "Edit", "Screenings", new { date = movie.Date, hallId = movie.HallId }, new { @class = "btn btn-primary" }) |
+                @Html.ActionLink("Delete", "RemoveScreen", "Screenings", new { date = movie.Date, hallId = movie.HallId }, new { @class = "btn btn-primary" })
+
             </td>
             @*<td>
                 @Html.ActionLink("Edit", "Edit", "Movies", new { id = movie.CustomerUserId }, null) |

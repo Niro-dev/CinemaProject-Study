@@ -397,6 +397,7 @@
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\MembershipType.cs" />
     <Compile Include="Models\Movie.cs" />
+    <Compile Include="Models\RoleName.cs" />
     <Compile Include="Models\Screening.cs" />
     <Compile Include="Models\Ticket.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -696,9 +697,14 @@
     <Content Include="Views\Movies\MovieForm.cshtml" />
     <Content Include="Views\Screenings\ScreeningForm.cshtml" />
     <Content Include="Views\Ticket\ChooseSeat.cshtml" />
-    <Content Include="Views\Ticket\Payment.cshtml" />
     <Content Include="Views\Cart\Index.cshtml" />
     <Content Include="Views\Ticket\ChangeSeat.cshtml" />
+    <Content Include="Views\Movies\DetailsForAnonymous.cshtml" />
+    <Content Include="Views\Movies\DetailsForAdmin.cshtml" />
+    <Content Include="Views\Movies\IndexForAdmin.cshtml" />
+    <Content Include="Views\Screenings\ScreeningFormEdit.cshtml" />
+    <Content Include="Views\Screenings\Error.cshtml" />
+    <Content Include="Views\Screenings\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -9,6 +9,7 @@ using CinemaProject.ViewModel;
 
 namespace CinemaProject.Controllers
 {
+    [Authorize(Roles = RoleName.Admin)]
     public class CustomerController : Controller
     {
         private ApplicationDbContext _context;
@@ -23,7 +24,7 @@ namespace CinemaProject.Controllers
             _context.Dispose();
         }
 
-        public ActionResult New()
+        public ActionResult Index()
         {
 
             var viewModel = new CustomerFormViewModel
@@ -41,12 +42,12 @@ namespace CinemaProject.Controllers
             return RedirectToAction("Details", new { id = Customer });
         }
 
-        public ViewResult Index()
-        {
-            var customers = _context.Customers.ToList();
+        //public ViewResult Index()
+        //{
+        //    var customers = _context.Customers.ToList();
 
-            return View(customers); 
-        }
+        //    return View(customers); 
+        //}
 
         public ActionResult Details(string id)
         {
@@ -59,21 +60,21 @@ namespace CinemaProject.Controllers
             return View("Details",tickets);
         }
 
-        public ActionResult Edit(string id)
-        {
-            var customer = _context.Customers.SingleOrDefault(c => c.CustomerUserId == id);
+        //public ActionResult Edit(string id)
+        //{
+        //    var customer = _context.Customers.SingleOrDefault(c => c.CustomerUserId == id);
 
-            if (customer == null)
-            {
-                return HttpNotFound();
-            }
+        //    if (customer == null)
+        //    {
+        //        return HttpNotFound();
+        //    }
 
-            //var viewModel = new CustomerFormViewModel
-            //{
-            //    Customer = customer
-            //};
+        //    //var viewModel = new CustomerFormViewModel
+        //    //{
+        //    //    Customer = customer
+        //    //};
 
-            return View("CustomerForm");
-        }
+        //    return View("CustomerForm");
+        //}
     }
 }

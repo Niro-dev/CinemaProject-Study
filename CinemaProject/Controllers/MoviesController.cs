@@ -23,13 +23,19 @@ namespace CinemaProject.Controllers
         {
             _context.Dispose();
         }
+
+        [AllowAnonymous]
         public ViewResult Index()
         {
             var movies = _context.Movies.Include(m => m.Genre).ToList();
 
+            if (User.IsInRole(RoleName.Admin))
+                return View("IndexForAdmin", movies);
+
             return View(movies);
         }
 
+        [AllowAnonymous]
         public ViewResult OrderByGenre(string genre)
         {
             var movies = _context.Movies.Include(m => m.Genre).Where(m=>m.Genre.Name.Equals(genre)).ToList();
@@ -37,6 +43,7 @@ namespace CinemaProject.Controllers
             return View("Index",movies);
         }
 
+        [AllowAnonymous]
         public ViewResult OrderByPopularity()
         {
             // getting movies id by the same order as in db into movieIdList
@@ -63,7 +70,7 @@ namespace CinemaProject.Controllers
             return View("Index", moviesSortedByPopularity);
         }
 
-
+        [Authorize(Roles = RoleName.Admin)]
         public ViewResult New()
         {
             var genres = _context.Genres.ToList();
@@ -77,6 +84,7 @@ namespace CinemaProject.Controllers
             return View("MovieForm", viewModel);
         }
 
+        [Authorize(Roles = RoleName.Admin)]
         public ActionResult Edit(int id)
         {
             var movie = _context.Movies.SingleOrDefault(m => m.Id == id);
@@ -95,6 +103,7 @@ namespace CinemaProject.Controllers
             return View("MovieForm", viewModel);
         }
 
+        [AllowAnonymous]
         public ActionResult Details(int id)
         {
             var movie = _context.Movies
@@ -117,30 +126,34 @@ namespace CinemaProject.Controllers
                 Screenings = screen
             };
 
-
-            return View(viewModel);
+            if (User.IsInRole(RoleName.Admin))
+                return View("DetailsForAdmin", viewModel);
+            //if (User.Identity.IsAuthenticated)
+            //    return View("Details",viewModel);
+            return View("Details",viewModel);
         }
 
         // GET: Movies/Random
-        public ActionResult Random()
-        {
-            var movie = new Movie() { Name = "Shrek!" };
+        //public ActionResult Random()
+        //{
+        //    var movie = new Movie() { Name = "Shrek!" };
 
-            var customers = new List<Customer>
-            {
-                new Customer {Name = "Customer 1"},
-                new Customer {Name = "Customer 2"}
-            };
+        //    var customers = new List<Customer>
+        //    {
+        //        new Customer {Name = "Customer 1"},
+        //        new Customer {Name = "Customer 2"}
+        //    };
 
-            var viewModel = new RandomMovieViewModel
-            {
-                Movie = movie,
-                Customers = customers
-            };
+        //    var viewModel = new RandomMovieViewModel
+        //    {
+        //        Movie = movie,
+        //        Customers = customers
+        //    };
 
-            return View(viewModel);
-        }
+        //    return View(viewModel);
+        //}
 
+        [Authorize(Roles = RoleName.Admin)]
         [HttpPost]
         public ActionResult Save(HttpPostedFileBase file,Movie movie)
         {

@@ -1,0 +1,48 @@
+﻿@model CinemaProject.ViewModel.ScreeningFormViewModel
+@{
+    ViewBag.Title = "ScreeningForm";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Screenings Manage Page</h2>
+@using (Html.BeginForm("SaveEdit", "Screenings"))
+{
+    <div class="form-group">
+        @Html.LabelFor(m => m.Screening.HallId)
+        @Html.DropDownListFor(m => m.Screening.HallId, new SelectList(Model.Halls, "Id", "Id"), "", new { @class = "form-control" })
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.Screening.MovieId)
+        @Html.DropDownListFor(m => m.Screening.MovieId, new SelectList(Model.Movie, "Id", "Name"), "", new { @class = "form-control" })
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.Screening.Date)
+        @Html.TextBoxFor(m=>  m.Screening.Date,
+            new { @class = "form-control datetimepicker", type = "text", autocomplete="off"})
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.Screening.Price)
+        @Html.TextBoxFor(m => m.Screening.Price, new { @class = "form-control" })
+    </div>
+    <button type="submit" class="btn btn-primary">Save</button>
+}
+
+@section Scripts
+{
+
+    <script src="~/Scripts/jquery-3.3.1.min.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.full.min.js"></script>
+
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.css">
+    <script>
+        $(document).ready(function () {
+            jQuery('.datetimepicker').datetimepicker({
+                format: 'd/m/Y H:i',
+                step: 30,
+                theme: 'dark'
+            });
+        });
+    </script>
+}

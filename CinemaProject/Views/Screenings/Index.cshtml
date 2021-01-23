@@ -1,0 +1,40 @@
+﻿@model IEnumerable<CinemaProject.Models.Screening>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Screenings Page:</h2>
+<p style="margin-top: 20px; margin-bottom: 20px">
+    @Html.ActionLink("New Screening", "New", "Screenings", new { @class = "btn btn-primary" })
+</p>
+<table id="movies" class="table table-bordered table-hover">
+    <thead>
+    <tr>
+        <th>Date</th>
+        <th>Movie</th>
+        <th>Genre</th>
+        <th>Hall</th>
+        <th>Price</th>
+        <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var screen in Model)
+    {
+        <tr>
+            <td>@screen.Date</td>
+            <td>@screen.Movie.Name</td>
+            <td>@screen.Movie.Genre.Name</td>
+            <td>@screen.HallId</td>
+            <td>@screen.Price</td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", "Screenings", new { date = screen.Date, hallId = screen.HallId }, new { @class = "btn btn-primary" }) | 
+                @Html.ActionLink("Delete", "RemoveScreen", "Screenings", new { date = screen.Date, hallId = screen.HallId }, new { @class = "btn btn-primary" })
+            </td>
+        </tr>
+    }
+    </tbody>
+</table>
+
+

@@ -26,6 +26,7 @@ namespace CinemaProject.Controllers
             _context.Dispose();
         }
 
+        [AllowAnonymous]
         public ActionResult ChooseSeat(DateTime date, byte hallId)
         {
             var movieScreen = _context.Screenings
@@ -159,21 +160,11 @@ namespace CinemaProject.Controllers
             return RedirectToAction("Index", "Cart");
         }
 
+        [Authorize(Roles = RoleName.Admin)]
         public ActionResult DeleteAllUserTickets(string userId)
         {
             var ticketInDb = _context.Tickets
                 .Where(t => t.Paid && t.CustomerUserId.Equals(userId));
-
-            //if (!ticketInDb.Any())
-            //{
-            //    var tickets1 = _context.Tickets
-            //        .Where(t => t.CustomerUserId.Equals(userId))
-            //        .Include(s => s.Screening)
-            //        .Include(m => m.Screening.Movie)
-            //        .ToList();
-
-            //    return RedirectToAction("Save", "Customer", userId);
-            //}
 
             foreach (var ticket in ticketInDb)
             {
@@ -181,26 +172,9 @@ namespace CinemaProject.Controllers
             }
             _context.SaveChanges();
 
-            //var tickets = _context.Tickets
-            //    .Where(t => t.CustomerUserId.Equals(userId))
-            //    .Include(s => s.Screening)
-            //    .Include(m => m.Screening.Movie)
-            //    .ToList();
 
             return RedirectToAction("Details", "Customer",new { id = userId });
         }
 
-
-        public ActionResult Payment()
-        {
-            ViewBag.s = User.Identity.GetUserId();
-            return View();
-        }
-
-        // GET: Seat
-        public ActionResult Index()
-        {
-            return View();
-        }
     }
 }

@@ -29,9 +29,7 @@
             <td>@movie.Date</td>
             <td>@movie.HallId</td>
             <td>@movie.Price</td>
-            <td>
-                @Html.ActionLink("Choose Seat", "ChooseSeat", "Ticket", new { date = movie.Date, hallId = movie.HallId }, new { @class = "btn btn-primary" })
-            </td>
+            <td>Buy</td>
             @*<td>
                 @Html.ActionLink("Edit", "Edit", "Movies", new { id = movie.CustomerUserId }, null) |
                 <button data-movie-id="@movie.CustomerUserId" class="btn-link js-delete">Delete</button> |

@@ -5,10 +5,16 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Hello @ViewBag.userName, This is your cart</h2>
+@if (!Model.Any())
+{
+    <h2 style="color: red; text-align: center; margin-top: 200px; margin-bottom: 170px">Your Cart Is Empty.</h2>
+}
+else
+{
+    <h2>Hello @ViewBag.userName, This is your cart</h2>
 
-<table id="tickets" class="table table-bordered table-hover">
-    <thead>
+    <table id="tickets" class="table table-bordered table-hover">
+        <thead>
         <tr>
             <th>Movie Name</th>
             <th>Date</th>
@@ -17,43 +23,80 @@
             <th>Price</th>
             <th>Actions</th>
         </tr>
-    </thead>
-    <tbody>
-    @foreach (var ticket in Model)
-    {
+        </thead>
+        <tbody>
+        @foreach (var ticket in Model)
+        {
+            <tr>
+                <td>@Html.ActionLink(ticket.Screening.Movie.Name, "Details", "Movies", new {id = ticket.Screening.MovieId}, null)</td>
+                <td>@ticket.Date</td>
+                <td>@ticket.HallId</td>
+                <td>@ticket.SeatNumber</td>
+                <td>@ticket.Screening.Price</td>
+                <td>
+                    @Html.ActionLink("Remove", "RemoveTicketFromCart", "Ticket", new {seat = ticket.SeatNumber, date = ticket.Date, hall = ticket.HallId}, null) |
+                    @Html.ActionLink("Change Seat", "ChangeSeat", "Ticket", new {date = ticket.Date, hallId = ticket.HallId, seat = ticket.SeatNumber}, null)
+                </td>
+            </tr>
+        }
         <tr>
-            <td>@Html.ActionLink(ticket.Screening.Movie.Name, "Details", "Movies", new { id = ticket.Screening.MovieId }, null)</td>
-            <td>@ticket.Date</td>
-            <td>@ticket.HallId</td>
-            <td>@ticket.SeatNumber</td>
-            <td>@ticket.Screening.Price</td>
-            <td>@Html.ActionLink("Remove", "RemoveTicketFromCart", "Ticket", new { seat = ticket.SeatNumber, date = ticket.Date, hall = ticket.HallId }, null) | 
-                @Html.ActionLink("Change Seat", "ChangeSeat", "Ticket", new { date = ticket.Date, hallId = ticket.HallId, seat = ticket.SeatNumber }, null)
-            </td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
         </tr>
-    }
-    <tr>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-    </tr>
-    <tr>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td>Total:</td>
-        <td>@ViewBag.lastPrice</td>
-        <td></td>
-    </tr>
-    </tbody>
-</table>
+        <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td>Total:</td>
+            <td>@Session["lastPrice"]</td>
+            <td></td>
+        </tr>
+        </tbody>
+    </table>
 
-<p>
-    @Html.ActionLink("Clear Cart", "RemoveAllFromCart", "Ticket", new { userId = User.Identity.GetUserId()}, new { @class = "btn btn-primary" })
-    @Html.ActionLink("Checkout", "Checkout", "Cart", null, new { @class = "btn btn-primary" })
-    @Html.ActionLink("Continue Shopping", "Index", "Movies", null, new { @class = "btn btn-primary" })
-</p>
+    <p>
+        @Html.ActionLink("Clear Cart", "RemoveAllFromCart", "Ticket", new {userId = User.Identity.GetUserId()}, new {@class = "btn btn-primary", @style = "margin-top: 50px"})
+        @Html.ActionLink("Continue Shopping", "Index", "Movies", null, new {@class = "btn btn-primary"})
+        <div id="paypal-button-container" style="text-align: center; margin-top: 100px"></div>
+    </p>
+}
+@section scripts
+{
 
+    <script src="https://www.paypal.com/sdk/js?client-id=AQ8_nFQfXB6mRyXz8VTXeUWAALi02akLd3qIDBvy96Ro8JDK0JwRWCyCcnR0AkFUHITPFBz6GyFXcS8j&currency=ILS">
+        // Required. Replace SB_CLIENT_ID with your sandbox client ID.
+    </script>
+
+
+    <script>
+        paypal.Buttons({
+            createOrder: function(data, actions) {
+                // This function sets up the details of the transaction, including the amount and line item details.
+                return actions.order.create({
+                    purchase_units: [
+                        {
+                            amount: {
+                                value: @Session["lastPrice"]
+                            }
+                        }
+                    ]
+                });
+            },
+            onApprove: function(data, actions) {
+                // This function captures the funds from the transaction.
+                return actions.order.capture().then(function(details) {
+                    // This function shows a transaction success message to your buyer.
+                    alert('Transaction completed!');
+                    window.location.href = "/Cart/Success/"
+                    
+                });
+            }
+        }).render('#paypal-button-container');
+        //This function displays Smart Payment Buttons on your web page.
+    </script>
+
+}
