@@ -5,20 +5,14 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>New Customer</h2>
+<h2>Customer Information Center:</h2>
 
 @using (Html.BeginForm("Save", "Customer"))
 {
     <div class="form-group">
-        @Html.LabelFor(m => m.Customer.Name)
-        @Html.TextBoxFor(m => m.Customer.Name, new { @class = "form-control" })
-        @Html.ValidationMessageFor(m=> m.Customer.Name)
+        @Html.Label("Name")
+        @Html.DropDownListFor(m => Model.Customer, new SelectList(Model.Customers, "CustomerUserId", "Name"), "", new { @class = "form-control" })
     </div>
-    <div class="form-group">
-        @Html.LabelFor(m => m.Customer.Birthdate)
-        @Html.TextBoxFor(m => m.Customer.Birthdate,"{0:d MMM yyyy}", new { @class = "form-control" })
-    </div>
-    @Html.HiddenFor(m => m.Customer.CustomerUserId)
     <button type="submit" class="btn btn-primary">Save</button>
 }
 

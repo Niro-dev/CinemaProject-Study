@@ -30,6 +30,40 @@ namespace CinemaProject.Controllers
             return View(movies);
         }
 
+        public ViewResult OrderByGenre(string genre)
+        {
+            var movies = _context.Movies.Include(m => m.Genre).Where(m=>m.Genre.Name.Equals(genre)).ToList();
+
+            return View("Index",movies);
+        }
+
+        public ViewResult OrderByPopularity()
+        {
+            // getting movies id by the same order as in db into movieIdList
+            var movieIdList = _context.Movies
+                .Select(movie => movie.Id)
+                .ToList();
+
+            
+            // filling the tuples by : 1 - the number of screenings of a movie 2- the id of this movie
+            var tupleList = movieIdList
+                .Select(movie => new Tuple<int, int>(_context.Screenings.Count(s => s.MovieId == movie), movie))
+                .ToList();
+
+
+            // sorting the tuples by the number of screenings
+            tupleList.Sort((a, b) => b.Item1.CompareTo(a.Item1));
+
+            // creating new list of movies that sorted by popularity
+            var moviesSortedByPopularity = tupleList.Select(movie => _context.Movies
+                    .Include(m => m.Genre)
+                    .Single(m => m.Id == movie.Item2))
+                .ToList();
+
+            return View("Index", moviesSortedByPopularity);
+        }
+
+
         public ViewResult New()
         {
             var genres = _context.Genres.ToList();

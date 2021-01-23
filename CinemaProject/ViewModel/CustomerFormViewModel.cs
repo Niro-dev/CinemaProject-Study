@@ -8,6 +8,8 @@ namespace CinemaProject.ViewModel
 {
     public class CustomerFormViewModel
     {
-        public Customer Customer { get; set; }
+        public string Customer { get; set; }
+
+        public IEnumerable<Customer> Customers { get; set; }
     }
 }

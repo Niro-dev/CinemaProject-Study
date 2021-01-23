@@ -25,40 +25,20 @@ namespace CinemaProject.Controllers
 
         public ActionResult New()
         {
-            var membershipTypes = _context.MembershipTypes.ToList();
 
             var viewModel = new CustomerFormViewModel
             {
-                Customer = new Customer()
+                Customers = _context.Customers.ToList(),
+                Customer = ""
             };
 
             return View("CustomerForm",viewModel);
         }
 
         [HttpPost]
-        public ActionResult Save(Customer customer)
+        public ActionResult Save(string Customer)
         {
-            if (!ModelState.IsValid)
-            {
-                var viewModel = new CustomerFormViewModel
-                {
-                    Customer = customer
-                };
-
-                return View("CustomerForm", viewModel);
-            }
-            if(customer.CustomerUserId == "")
-                _context.Customers.Add(customer);
-            else
-            {
-                var customerInDb = _context.Customers.Single(c => c.CustomerUserId == customer.CustomerUserId);
-                customerInDb.Name = customer.Name;
-                customerInDb.Birthdate = customer.Birthdate;
-            }
-
-            _context.SaveChanges();
-
-            return RedirectToAction("Index", "Customer");
+            return RedirectToAction("Details", new { id = Customer });
         }
 
         public ViewResult Index()
@@ -70,12 +50,13 @@ namespace CinemaProject.Controllers
 
         public ActionResult Details(string id)
         {
-            var customer = _context.Customers.SingleOrDefault(c => c.CustomerUserId == id);
+            var tickets = _context.Tickets
+                .Where(t => t.CustomerUserId.Equals(id))
+                .Include(s => s.Screening)
+                .Include(m => m.Screening.Movie)
+                .ToList();
 
-            if (customer == null)
-                return HttpNotFound();
-
-            return View(customer);
+            return View("Details",tickets);
         }
 
         public ActionResult Edit(string id)
@@ -87,12 +68,12 @@ namespace CinemaProject.Controllers
                 return HttpNotFound();
             }
 
-            var viewModel = new CustomerFormViewModel
-            {
-                Customer = customer
-            };
+            //var viewModel = new CustomerFormViewModel
+            //{
+            //    Customer = customer
+            //};
 
-            return View("CustomerForm", viewModel);
+            return View("CustomerForm");
         }
     }
 }

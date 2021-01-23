@@ -159,6 +159,37 @@ namespace CinemaProject.Controllers
             return RedirectToAction("Index", "Cart");
         }
 
+        public ActionResult DeleteAllUserTickets(string userId)
+        {
+            var ticketInDb = _context.Tickets
+                .Where(t => t.Paid && t.CustomerUserId.Equals(userId));
+
+            //if (!ticketInDb.Any())
+            //{
+            //    var tickets1 = _context.Tickets
+            //        .Where(t => t.CustomerUserId.Equals(userId))
+            //        .Include(s => s.Screening)
+            //        .Include(m => m.Screening.Movie)
+            //        .ToList();
+
+            //    return RedirectToAction("Save", "Customer", userId);
+            //}
+
+            foreach (var ticket in ticketInDb)
+            {
+                _context.Tickets.Remove(ticket);
+            }
+            _context.SaveChanges();
+
+            //var tickets = _context.Tickets
+            //    .Where(t => t.CustomerUserId.Equals(userId))
+            //    .Include(s => s.Screening)
+            //    .Include(m => m.Screening.Movie)
+            //    .ToList();
+
+            return RedirectToAction("Details", "Customer",new { id = userId });
+        }
+
 
         public ActionResult Payment()
         {

@@ -7,20 +7,26 @@
 
 <h2>Movies</h2>
 <p>
-    @Html.ActionLink("New Movie", "New", "Movies", null, new { @class = "btn btn-primary" })
+    @Html.ActionLink("Action", "OrderByGenre", "Movies", new { genre = "Action" }, new { @class = "btn btn-primary" })
+    @Html.ActionLink("Family", "OrderByGenre", "Movies", new { genre = "Family" }, new { @class = "btn btn-primary" })
+    @Html.ActionLink("Thriller", "OrderByGenre", "Movies", new { genre = "Thriller" }, new { @class = "btn btn-primary" })
+    @Html.ActionLink("Romance", "OrderByGenre", "Movies", new { genre = "Romance" }, new { @class = "btn btn-primary" })
+    @Html.ActionLink("Comedy", "OrderByGenre", "Movies", new { genre = "Comedy" }, new { @class = "btn btn-primary" })
+    @Html.ActionLink("Popularity", "OrderByPopularity", "Movies",  null, new { @class = "btn btn-primary" })
+    @Html.ActionLink("All Movies", "Index", "Movies", null, new { @class = "btn btn-primary" })
 </p>
 <table id="movies" class="table table-bordered table-hover">
     <thead>
-        <tr>
-            <th>Poster</th>
-            <th>Movie</th>
-            <th>Genre</th>
-            <th></th>
-        </tr>
+    <tr>
+        <th>Poster</th>
+        <th>Movie</th>
+        <th>Genre</th>
+        <th></th>
+    </tr>
     </thead>
     <tbody>
-        @foreach (var movie in Model)
-        {
+    @foreach (var movie in Model)
+    {
         <tr>
             <td>
                 <img id="img_logo" alt="Logo" src="@Url.Content("~/UploadedFiles/" + movie.file)" style="height:100px;width:100px;" />
@@ -33,9 +39,12 @@
                 @Html.ActionLink("Details", "Details", "Movies", new { id = movie.Id }, null)
             </td>
         </tr>
-        }
+    }
     </tbody>
 </table>
+<p>
+    @Html.ActionLink("New Movie", "New", "Movies", null, new { @class = "btn btn-primary" })
+</p>
 @section scripts
 {
     <script>
