@@ -40,6 +40,8 @@ namespace CinemaProject.Controllers
         {
             var movies = _context.Movies.Include(m => m.Genre).Where(m=>m.Genre.Name.Equals(genre)).ToList();
 
+            if (User.IsInRole(RoleName.Admin))
+                return View("IndexForAdmin",movies);
             return View("Index",movies);
         }
 
@@ -66,7 +68,8 @@ namespace CinemaProject.Controllers
                     .Include(m => m.Genre)
                     .Single(m => m.Id == movie.Item2))
                 .ToList();
-
+            if(User.IsInRole(RoleName.Admin))
+                return View("IndexForAdmin", moviesSortedByPopularity);
             return View("Index", moviesSortedByPopularity);
         }
 

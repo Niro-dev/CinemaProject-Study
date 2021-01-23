@@ -59,7 +59,7 @@ else
     </table>
 
     <p>
-        @Html.ActionLink("Clear Cart", "RemoveAllFromCart", "Ticket", new {userId = User.Identity.GetUserId()}, new {@class = "btn btn-primary", @style = "margin-top: 50px"})
+        @Html.ActionLink("Clear Cart", "RemoveAllFromCart", "Ticket", new {userId = User.Identity.GetUserId()}, new {@class = "btn btn-primary"})
         @Html.ActionLink("Continue Shopping", "Index", "Movies", null, new {@class = "btn btn-primary"})
         <div id="paypal-button-container" style="text-align: center; margin-top: 100px"></div>
     </p>

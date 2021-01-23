@@ -6,6 +6,9 @@
 }
 
 <h2>Movies</h2>
+<p style="margin-bottom: 20px; margin-bottom: 20px">
+    @Html.ActionLink("New Movie", "New", "Movies", null, new { @class = "btn btn-primary" })
+</p>
 <p>
     @Html.ActionLink("Action", "OrderByGenre", "Movies", new { genre = "Action" }, new { @class = "btn btn-primary" })
     @Html.ActionLink("Family", "OrderByGenre", "Movies", new { genre = "Family" }, new { @class = "btn btn-primary" })
@@ -42,9 +45,7 @@
     }
     </tbody>
 </table>
-<p>
-    @Html.ActionLink("Index Movie", "New", "Movies", null, new { @class = "btn btn-primary" })
-</p>
+
 @section scripts
 {
     <script>
